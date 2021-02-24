@@ -6,11 +6,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from 'ngx-webstorage';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private apiAuthUrl = environment.apiBaseUrl + '/api/v1/auth';
+
   constructor(
     private httpClient: HttpClient,
     private localStorage: LocalStorageService
@@ -18,7 +21,7 @@ export class AuthService {
 
   signup(signupRequestPayload: SignupRequestPayload): Observable<any> {
     return this.httpClient.post(
-      'http://localhost:8080/api/v1/auth/signup',
+      `${this.apiAuthUrl}/signup`,
       signupRequestPayload,
       { responseType: 'text' }
     );
@@ -26,10 +29,7 @@ export class AuthService {
 
   login(loginRequestPayload: LoginRequestPayload): Observable<boolean> {
     return this.httpClient
-      .post<LoginResponse>(
-        'http://localhost/api/v1/auth/login',
-        loginRequestPayload
-      )
+      .post<LoginResponse>(`${this.apiAuthUrl}/login`, loginRequestPayload)
       .pipe(
         map((data) => {
           this.localStorage.store(
