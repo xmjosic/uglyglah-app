@@ -2,7 +2,8 @@
   margin: 100px;
 }
 
-.login-failed {
+.login-failed,
+.register-success {
   text-align: center;
   margin: auto;
   margin-top: 10px;

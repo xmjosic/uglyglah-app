@@ -63,9 +63,16 @@
                 >New to UglyGlah? <a routerLink="/signup">Sign up</a></span
               >
             </span>
-            <!--div class="login-failed" *ngIf="this.isError">
+            <div class="login-failed" *ngIf="this.isError">
               <p class="login-failed-text">Login failed. Please try again!</p>
-            </div-->
+            </div>
+            <div
+              class="login-failed"
+              [ngStyle]="{ 'background-color': 'green' }"
+              *ngIf="this.registerSuccessMessage.length > 0"
+            >
+              <p class="register-success-text">{{ registerSuccessMessage }}</p>
+            </div>
           </form>
         </div>
       </div>
