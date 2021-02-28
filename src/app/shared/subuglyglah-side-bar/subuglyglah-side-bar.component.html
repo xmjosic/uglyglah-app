@@ -1,0 +1,15 @@
+<div class="sidebar-view-subuglyglah">
+  <div style="color: black; font-weight: bold">Browse subuglyglah</div>
+  <hr />
+  <span *ngFor="let subuglyglah of subuglyglahs">
+    <span class="subuglyglah-text"
+      ><a href="/view-subuglyglah/{{ subuglyglah.id }}">{{
+        subuglyglah.name
+      }}</a></span
+    >
+    <hr />
+  </span>
+  <div style="text-align: center" *ngIf="displayViewAll">
+    <a style="font-weight: bold" routerLink="/subuglyglahs">View all</a>
+  </div>
+</div>
