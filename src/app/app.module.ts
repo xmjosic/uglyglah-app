@@ -18,6 +18,11 @@ import { PostTileComponent } from './shared/post-tile/post-tile.component';
 import { VoteButtonComponent } from './shared/vote-button/vote-button.component';
 import { SideBarComponent } from './shared/side-bar/side-bar.component';
 import { SubuglyglahSideBarComponent } from './shared/subuglyglah-side-bar/subuglyglah-side-bar.component';
+import { CreateSubuglyglahComponent } from './subuglyglah/create-subuglyglah/create-subuglyglah.component';
+import { CreatePostComponent } from './post/create-post/create-post.component';
+import { ListSubuglyglahComponent } from './subuglyglah/list-subuglyglah/list-subuglyglah.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
+import { ViewPostComponent } from './post/view-post/view-post.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +35,10 @@ import { SubuglyglahSideBarComponent } from './shared/subuglyglah-side-bar/subug
     VoteButtonComponent,
     SideBarComponent,
     SubuglyglahSideBarComponent,
+    CreateSubuglyglahComponent,
+    CreatePostComponent,
+    ListSubuglyglahComponent,
+    ViewPostComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +49,7 @@ import { SubuglyglahSideBarComponent } from './shared/subuglyglah-side-bar/subug
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     FontAwesomeModule,
+    EditorModule,
   ],
   providers: [
     {

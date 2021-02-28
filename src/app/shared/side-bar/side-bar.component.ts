@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./side-bar.component.css'],
 })
 export class SideBarComponent implements OnInit {
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
 
-  goToCreatePost() {}
-  goToCreateSubuglyglah() {}
+  goToCreatePost() {
+    this.router.navigateByUrl('/create-post');
+  }
+  goToCreateSubuglyglah() {
+    this.router.navigateByUrl('/create-subuglyglah');
+  }
 }

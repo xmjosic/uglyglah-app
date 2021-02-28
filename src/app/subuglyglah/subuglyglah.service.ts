@@ -8,11 +8,20 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class SubuglyglahService {
-  private apiSubuglyglahUrl = environment.apiBaseUrl + '/api/v1/subuglyglah/';
+  private apiSubuglyglahUrl = environment.apiBaseUrl + '/api/v1/subuglyglah';
 
   constructor(private http: HttpClient) {}
 
   getAllSubuglyglahs(): Observable<Array<SubuglyglahModel>> {
     return this.http.get<Array<SubuglyglahModel>>(`${this.apiSubuglyglahUrl}`);
+  }
+
+  createSubuglyglah(
+    subuglyglahModel: SubuglyglahModel
+  ): Observable<SubuglyglahModel> {
+    return this.http.post<SubuglyglahModel>(
+      `${this.apiSubuglyglahUrl}`,
+      subuglyglahModel
+    );
   }
 }
