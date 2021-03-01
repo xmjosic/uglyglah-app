@@ -9,16 +9,23 @@ import { CreatePostPayload } from '../post/create-post/create-post.payload';
   providedIn: 'root',
 })
 export class PostService {
-  private apiPostUrl = environment.apiBaseUrl + '/api/v1/posts/';
+  private apiPostUrl = environment.apiBaseUrl + '/api/v1/posts';
 
   constructor(private http: HttpClient) {}
 
-  //TODO: check post model array
   getAllPosts(): Observable<Array<PostModel>> {
-    return this.http.get<Array<PostModel>>(`${this.apiPostUrl}`);
+    return this.http.get<Array<PostModel>>(`${this.apiPostUrl}/`);
   }
 
   createPost(postPayload: CreatePostPayload): Observable<any> {
-    return this.http.post(`${this.apiPostUrl}`, postPayload);
+    return this.http.post(`${this.apiPostUrl}/`, postPayload);
+  }
+
+  getPost(id: number): Observable<PostModel> {
+    return this.http.get<PostModel>(`${this.apiPostUrl}/` + id);
+  }
+
+  getAllPostsByUser(name: string): Observable<PostModel[]> {
+    return this.http.get<PostModel[]>(`${this.apiPostUrl}/by-user/` + name);
   }
 }

@@ -8,7 +8,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
+import { catchError, filter, switchMap, take } from 'rxjs/operators';
 import { AuthService } from './shared/auth.service';
 
 @Injectable({
@@ -50,22 +50,23 @@ export class TokenInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (!this.isTokenRefreshing) {
-      this.isTokenRefreshing = true;
-      this.refreshTokenSubject.next(null);
+    if (req.url.indexOf('refresh') !== -1 || req.url.indexOf('login') !== -1) {
+      return next.handle(req);
+    }
 
-      return this.authService.refreshToken().pipe(
-        switchMap((refreshTokenResponse: LoginResponse) => {
-          this.isTokenRefreshing = false;
-          this.refreshTokenSubject.next(
-            refreshTokenResponse.authenticationToken
-          );
-          return next.handle(
-            this.addToken(req, refreshTokenResponse.authenticationToken)
-          );
+    const jwtToken = this.authService.getJwtToken();
+
+    if (jwtToken) {
+      return next.handle(this.addToken(req, jwtToken)).pipe(
+        catchError((error) => {
+          if (error instanceof HttpErrorResponse && error.status === 403) {
+            return this.handleAuthErrors(req, next);
+          } else {
+            return throwError(error);
+          }
         })
       );
     }
-    return throwError('error');
+    return next.handle(req);
   }
 }
